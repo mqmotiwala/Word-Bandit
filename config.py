@@ -37,11 +37,15 @@ MULTIPLIER_COLORS = {
     "DW": "#ffb366",
     "TL": "#4da6ff",
     "DL": "#99e6ff",
-    None:  "#f2f2f2",
+    None:  "#f6f0e1",
 }
 
 MAX_GRID = 15
-PIXEL_COUNT_PER_TILE = 40
+PIXEL_COUNT_PER_TILE = 44
 HORIZONTAL_ANCHOR_DIR = "played horizontally"
 VERTICAL_ANCHOR_DIR = "played vertically"
 
+SCRABBLE_SHELF_NAME = "scrabble_shelf"
+
+def tile_key(row, col):
+    return f"R{row}C{col}"
