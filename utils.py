@@ -1,4 +1,5 @@
 import config as c
+import streamlit as st
 
 def load_words():
     with open (c.WORDS_FILE, "r") as f:
@@ -284,3 +285,36 @@ def get_anchors(grid):
         anchors += generate_anchors_from_slice(col, ("col", i))
 
     return anchors
+
+def get_grid(session_state=st.session_state):
+    """
+        Extracts the current Scrabble board state from Streamlit session_state.
+        Args:
+            session_state (st.session_state): The Streamlit session state object.
+    """
+    
+    grid = []
+    for i in range(c.MAX_GRID):
+        grid.append([])
+        for j in range(c.MAX_GRID):
+            grid[i].append(session_state.get(str(c.tile_key(i, j)), ""))
+
+    return grid
+
+def set_grid(grid=None, session_state=st.session_state, reset=False):
+    """
+    Sets or resets the Scrabble board state in Streamlit session_state.
+
+    Args:
+        grid (list[list[str]] or None): 2D list representing the Scrabble board.
+                                        If None and reset=True, initializes with empty strings.
+        session_state (st.session_state): The Streamlit session state object.
+        reset (bool): If True, resets the board to empty strings.
+    """
+    for i in range(c.MAX_GRID):
+        for j in range(c.MAX_GRID):
+            key = str(c.tile_key(i, j))
+            if reset or grid is None:
+                session_state[key] = ""
+            else:
+                session_state[key] = grid[i][j]

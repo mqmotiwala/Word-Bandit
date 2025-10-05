@@ -46,6 +46,8 @@ HORIZONTAL_ANCHOR_DIR = "played horizontally"
 VERTICAL_ANCHOR_DIR = "played vertically"
 
 SCRABBLE_SHELF_NAME = "scrabble_shelf"
+LOAD_GAME_BUTTON_TEXT = "📤 Load Game"
+FILE_UPLOADER_KEY = "load"
 
 def tile_key(row, col):
     return f"R{row}C{col}"

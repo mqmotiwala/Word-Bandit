@@ -67,6 +67,19 @@ def set_app_wide_styling():
                     z-index: 2; 
                     pointer-events: none;
                 }}
+
+                /* tile index text */
+                div.st-key-{c.tile_key(i, j)}::after {{
+                    content: "{i+1, j+1}"; 
+                    position: absolute; 
+                    bottom: 2px; 
+                    right: 4px; 
+                    font-size: 8px; 
+                    font-weight: 400; 
+                    color: #222; 
+                    z-index: 2; 
+                    pointer-events: none;
+                }}
             """)
 
     # styling applied to the shelf
@@ -95,6 +108,39 @@ def set_app_wide_styling():
             box-shadow: 0 0 8px rgba(0,0,0,0.3);
             transform: scale(1.05);
             transition: all 0.1s ease-in-out;
+        }}
+    """)
+
+    # file uploader component
+    styling_css.append(f"""
+        /* reduces width of file uploader to just the button */
+        [data-testid='stFileUploader'] {{
+            width: max-content;
+        }}
+
+        /* removes default background and padding around the file uploader button */       
+        [data-testid='stFileUploader'] section {{
+            padding: 0;
+            float: left;
+            background-color: transparent;
+        }}
+
+        /* reduces widget to just the button */         
+        [data-testid='stFileUploader'] section > input + div {{
+            display: none;
+        }}
+
+        /* hides the default text in the file uploader button */               
+        div.st-key-load [data-testid='stBaseButton-secondary'] {{
+            text-indent: -9999px;
+            line-height: 0;
+        }}
+
+        /* adds custom text to the file uploader button */
+        div.st-key-load [data-testid='stBaseButton-secondary']::after {{
+            line-height: initial;
+            content: "{c.LOAD_GAME_BUTTON_TEXT}";
+            text-indent: 0;
         }}
     """)
 
