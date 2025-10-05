@@ -67,20 +67,60 @@ def set_app_wide_styling():
                     z-index: 2; 
                     pointer-events: none;
                 }}
-
-                /* tile index text */
-                div.st-key-{c.tile_key(i, j)}::after {{
-                    content: "{i+1, j+1}"; 
-                    position: absolute; 
-                    bottom: 2px; 
-                    right: 4px; 
-                    font-size: 8px; 
-                    font-weight: 400; 
-                    color: #222; 
-                    z-index: 2; 
-                    pointer-events: none;
-                }}
             """)
+
+            if j == 0 or j == c.MAX_GRID-1:
+                # endpoint columns - add text for row index beside it
+                direction = "right" if j == 0 else "left"
+
+                styling_css.append(f"""
+                    div.st-key-{c.tile_key(i, j)} {{
+                        position: relative;             /* ensures ::after is anchored to this tile */
+                    }}
+
+                    /* row label (to the left of first column tile) */
+                    div.st-key-{c.tile_key(i, j)}::after {{
+                        content: "Row {i+1}";
+                        position: absolute;
+                        padding: 2px 4px;
+                        top: 50%;                           /* vertical center */
+                        {direction}: 100%;                  /* move completely to the left of tile */
+                        transform: translateY(-50%);        /* align vertically */
+                        text-align: {direction};            /* right-align the text within that box */
+                        font-size: 8px;
+                        font-weight: 700;
+                        color: #222;
+                        z-index: 2;
+                        pointer-events: none;
+                        white-space: nowrap;
+                    }}
+                """)
+
+            # --- Top & bottom column labels ---
+            if i == 0 or i == c.MAX_GRID - 1:
+                vertical_side = "top" if i == 0 else "bottom"
+                percentage = "-100%" if i == 0 else "100%"
+
+                styling_css.append(f"""
+                    div.st-key-{c.tile_key(i, j)} {{
+                        position: relative;
+                    }}
+
+                    div.st-key-{c.tile_key(i, j)}::before {{
+                        content: "Col {j+1}";
+                        position: absolute;
+                        padding: 2px 4px;
+                        {vertical_side}: 0;
+                        left: 50%;
+                        transform: translate(-50%, {percentage});
+                        font-size: 8px; 
+                        font-weight: 700;
+                        color: #222;
+                        z-index: 2;
+                        pointer-events: none;
+                        white-space: nowrap;
+                    }}
+                """)
 
     # styling applied to the shelf
     styling_css.append(f"""
