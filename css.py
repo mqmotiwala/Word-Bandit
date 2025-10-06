@@ -151,38 +151,5 @@ def set_app_wide_styling():
         }}
     """)
 
-    # file uploader component
-    styling_css.append(f"""
-        /* reduces width of file uploader to just the button */
-        [data-testid='stFileUploader'] {{
-            width: max-content;
-        }}
-
-        /* removes default background and padding around the file uploader button */       
-        [data-testid='stFileUploader'] section {{
-            padding: 0;
-            float: left;
-            background-color: transparent;
-        }}
-
-        /* reduces widget to just the button */         
-        [data-testid='stFileUploader'] section > input + div {{
-            display: none;
-        }}
-
-        /* hides the default text in the file uploader button */               
-        div.st-key-load [data-testid='stBaseButton-secondary'] {{
-            text-indent: -9999px;
-            line-height: 0;
-        }}
-
-        /* adds custom text to the file uploader button */
-        div.st-key-load [data-testid='stBaseButton-secondary']::after {{
-            line-height: initial;
-            content: "{c.LOAD_GAME_BUTTON_TEXT}";
-            text-indent: 0;
-        }}
-    """)
-
     styling_css.append("</style>")
     st.html("".join(styling_css))

@@ -132,4 +132,4 @@ with results:
 
         progress_bar.empty()
     else:
-        st.info("Enter your shelf letters and press 'Get playable words' to see possible plays.")
+        st.info("Fill out your board and shelf to see possible plays.")
