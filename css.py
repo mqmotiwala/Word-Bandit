@@ -106,7 +106,7 @@ def set_app_wide_styling():
                         position: relative;
                     }}
 
-                    div.st-key-{c.tile_key(i, j)}::before {{
+                    div.st-key-{c.tile_key(i, j)}::after {{
                         content: "{j+1}";
                         position: absolute;
                         padding: 2px 4px;
