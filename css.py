@@ -80,7 +80,7 @@ def set_app_wide_styling():
 
                     /* row label (to the left of first column tile) */
                     div.st-key-{c.tile_key(i, j)}::after {{
-                        content: "Row {i+1}";
+                        content: "{i+1}";
                         position: absolute;
                         padding: 2px 4px;
                         top: 50%;                           /* vertical center */
@@ -96,7 +96,7 @@ def set_app_wide_styling():
                     }}
                 """)
 
-            # --- Top & bottom column labels ---
+            # --- Top & bottom row labels ---
             if i == 0 or i == c.MAX_GRID - 1:
                 vertical_side = "top" if i == 0 else "bottom"
                 percentage = "-100%" if i == 0 else "100%"
@@ -107,7 +107,7 @@ def set_app_wide_styling():
                     }}
 
                     div.st-key-{c.tile_key(i, j)}::before {{
-                        content: "Col {j+1}";
+                        content: "{j+1}";
                         position: absolute;
                         padding: 2px 4px;
                         {vertical_side}: 0;
