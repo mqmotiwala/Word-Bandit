@@ -109,7 +109,7 @@ with results:
         progress_text = "Solving..."
         progress_bar = st.progress(0, text=progress_text)
 
-        grid = u.get_grid()
+        grid = u.get_grid()            
         progress_bar.progress(10, text=progress_text)
 
         anchors = u.get_anchors(grid)
@@ -117,18 +117,21 @@ with results:
 
         s = solver.Solver(shelf, anchors)
         progress_bar.progress(75, text=progress_text)
-        
-        res = s.get_ranked_results()
-        progress_bar.progress(100, text=progress_text)
 
-        if res:
-            st.success(f"Found {len(res)} playable words!")
-            for r in res:
-                st.write(r)
-        else:
-            st.info("Looks like it's a new game. You can start with any of these!")
+        if not any(grid) and shelf:
+            st.info("Starting a new game? Here are some high scoring words to start with!")
             for r in sorted(s.get_all_playable_words(), key=lambda x: u.score_value(x), reverse=True)[:5]:
                 st.write(f"- {r} ({u.score_value(r)} points)")
+        else:
+            res = s.get_ranked_results()
+            progress_bar.progress(100, text=progress_text)
+
+            if res:
+                st.success(f"Found {len(res)} playable words!")
+                for r in res:
+                    st.write(r)
+            else:
+                st.info("I found no valid moves!")
 
         progress_bar.empty()
     else:
